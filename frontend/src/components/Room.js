@@ -59,8 +59,8 @@ export default class Room extends Component {
             update={true}
             votesToSkip={this.state.votesToSkip}
             guestCanPause={this.state.guestCanPause}
-            roomCode={this.state.roomCode}
-            updateCallback={() => {}}
+            roomCode={this.roomCode}
+            updateCallback={this.getRoomDetails}
           />
         </Grid>
         <Grid item xs={12}>
@@ -108,7 +108,7 @@ export default class Room extends Component {
         </Grid>
         <Grid item xs={12}>
           <Typography variant="h4" component="h4">
-            Host: {this.state.isHost.toString()}
+            Votes to skip: {this.state.votesToSkip.toString()}
           </Typography>
         </Grid>
         {this.state.isHost ? this.renderSettingsButton() : null}
