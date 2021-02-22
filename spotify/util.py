@@ -7,7 +7,7 @@ from .models import SpotifyToken
 from .credentials import CLIENT_ID, CLIENT_SECRET, REDIRECT_URI
 
 
-BASE_URL = 'http://api.spotify.com/v1/me/'
+BASE_URL = 'https://api.spotify.com/v1/me/'
 
 def get_user_tokens(session_id):
     user_tokens = SpotifyToken.objects.filter(user = session_id)
@@ -33,7 +33,7 @@ def update_or_create_user_tokens(session_id, access_token, token_type, expires_i
 
 
 def refresh_spotify_token(session_id):
-    refresh_token = get_user_token(session_id).refresh_token
+    refresh_token = get_user_tokens(session_id).refresh_token
     response = post('https://accounts.spotify.com/api/token', data = {
         'grant_type': 'refresh_token',
         'refresh_token': refresh_token,

@@ -136,8 +136,6 @@ export default class Room extends Component {
     );
   };
 
-  
-
   render() {
     if (this.state.showSettings) {
       return this.renderSettings();
@@ -149,7 +147,7 @@ export default class Room extends Component {
             Code: {this.roomCode}
           </Typography>
         </Grid>
-        
+
         <MusicPlayer {...this.state.song} />
 
         {this.state.isHost ? this.renderSettingsButton() : null}

@@ -90,10 +90,10 @@ class CurrentSong(APIView):
             'artist': artist_string,
             'duration': duration,
             'time': progress,
-            'image_uri': album_cover,
+            'image_url': album_cover,
             'is_playing': is_playing,
-            "votes" = 0,
-            "id" = song_id,
+            "votes": 0,
+            "id": song_id,
         }
 
         return Response(song, status=status.HTTP_200_OK)

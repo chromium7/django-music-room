@@ -27,7 +27,7 @@ export default class MusicPlayer extends Component {
             <Typography component="h4" variant="h5">
               {this.props.title}
             </Typography>
-            <Typography color="secondary" variant="subtitile1">
+            <Typography color="textSecondary" variant="subtitile1">
               {this.props.artist}
             </Typography>
             <div>
