@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 from django.shortcuts import redirect
 
 from .credentials import REDIRECT_URI, CLIENT_ID, CLIENT_SECRET
-from .util import update_or_create_user_tokens 
+from .util import update_or_create_user_tokens, is_spotify_authenticated
 
 class AuthURL(APIView):
     def get(self, request, format=None):
