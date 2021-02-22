@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Grid, Button, Typography } from "@material-ui/core";
 
 import CreateRoomPage from "./CreateRoomPage";
+import MusicPlayer from "./MusicPlayer";
 
 export default class Room extends Component {
   constructor(props) {
@@ -12,10 +13,34 @@ export default class Room extends Component {
       isHost: false,
       showSettings: false,
       spotifyAuthenticated: false,
+      song: {},
     };
     this.roomCode = this.props.match.params.roomCode;
     this.getRoomDetails();
   }
+  componentDidMount() {
+    this.interval = setInterval(this.getCurrentSong, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
+  getCurrentSong = () => {
+    fetch("/spotify/current-song")
+      .then((response) => {
+        if (!response.ok) {
+          return {};
+        } else {
+          return response.json();
+        }
+      })
+      .then((data) => {
+        this.setState({
+          song: data,
+        });
+      });
+  };
 
   authenticateSpotify = () => {
     fetch("/spotify/is-authenticated")
@@ -111,6 +136,8 @@ export default class Room extends Component {
     );
   };
 
+  
+
   render() {
     if (this.state.showSettings) {
       return this.renderSettings();
@@ -122,16 +149,9 @@ export default class Room extends Component {
             Code: {this.roomCode}
           </Typography>
         </Grid>
-        <Grid item xs={12}>
-          <Typography variant="h4" component="h4">
-            Guest can pause: {this.state.guestCanPause.toString()}
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Typography variant="h4" component="h4">
-            Votes to skip: {this.state.votesToSkip.toString()}
-          </Typography>
-        </Grid>
+        
+        <MusicPlayer {...this.state.song} />
+
         {this.state.isHost ? this.renderSettingsButton() : null}
         <Grid item xs={12}>
           <Button
